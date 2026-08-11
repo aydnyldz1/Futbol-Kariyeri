@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1020">
+    <title>Futbol Kariyeri</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+    <!-- =====================================================
+         KAYIT EKRANI
+    ====================================================== -->
+    <section id="registerPage" class="page active">
+        <div class="register-background">
+            <div class="football-glow glow-1"></div>
+            <div class="football-glow glow-2"></div>
+            <div class="register-card">
+                <div class="logo">
+                    ⚽
+                </div>
+                <h1>Futbol Kariyeri</h1>
+                <p class="register-subtitle">
+                    Kendi futbol hikâyeni yaz.
+                </p>
+                <div class="form-group">
+                    <label for="regName">
+                        Oyuncu Adı
+                    </label>
+                    <input
+                        type="text"
+                        id="regName"
+                        placeholder="Örn. Aydın Yılmaz"
+                        maxlength="30"
+                    >
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="regAge">
+                            Yaş
+                        </label>
+                        <input
+                            type="number"
+                            id="regAge"
+                            min="16"
+                            max="40"
+                            value="18"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="regHeight">
+                            Boy (cm)
+                        </label>
+                        <input
+                            type="number"
+                            id="regHeight"
+                            min="150"
+                            max="220"
+                            value="180"
+                        >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="regWeight">
+                            Kilo (kg)
+                        </label>
+                        <input
+                            type="number"
+                            id="regWeight"
+                            min="45"
+                            max="150"
+                            value="75"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="regPosition">
+                            Pozisyon
+                        </label>
+                        <select id="regPosition">
+                            <option value="ST">
+                                Santrafor
+                            </option>
+                            <option value="LW">
+                                Sol Kanat
+                            </option>
+                            <option value="RW">
+                                Sağ Kanat
+                            </option>
+                            <option value="CAM">
+                                10 Numara
+                            </option>
+                            <option value="CM">
+                                Orta Saha
+                            </option>
+                            <option value="CDM">
+                                Ön Libero
+                            </option>
+                            <option value="LB">
+                                Sol Bek
+                            </option>
+                            <option value="RB">
+                                Sağ Bek
+                            </option>
+                            <option value="CB">
+                                Stoper
+                            </option>
+                            <option value="GK">
+                                Kaleci
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <button
+                    class="btn primary big-btn"
+                    onclick="createPlayer()"
+                >
+                    ⚽ Kariyere Başla
+                </button>
+                <button
+                    class="btn secondary big-btn"
+                    onclick="loadCareer()"
+                >
+                    💾 Kayıtlı Kariyeri Yükle
+                </button>
+                <p class="register-info">
+                    Başlangıç kulübün:
+                    <b>Başakşehir</b>
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- =====================================================
+         OYUN EKRANI
+    ====================================================== -->
+    <section id="gamePage" class="page">
+        <!-- ÜST BAR -->
+        <header class="topbar">
+            <div class="brand">
+                ⚽
+                <span>Futbol Kariyeri</span>
+            </div>
+            <div class="topbar-right">
+                <div class="season-box">
+                    <span>Sezon</span>
+                    <b id="seasonText">2026/27</b>
+                </div>
+                <div class="money-box">
+                    💰
+                    <span id="money">0 €</span>
+                </div>
+            </div>
+        </header>
+        <!-- ANA İÇERİK -->
+        <main class="main-container">
+            <!-- =================================================
+                 ANA SAYFA
+            ================================================== -->
+            <section id="home" class="screen">
+                <div class="hero-card">
+                    <div class="hero-left">
+                        <div class="player-avatar">
+                            ⚽
+                        </div>
+                        <div>
+                            <div class="small-label">
+                                FUTBOLCU
+                            </div>
+                            <h1 id="playerName">
+                                Oyuncu
+                            </h1>
+                            <p id="playerTeam">
+                                Başakşehir • Trendyol Süper Lig
+                            </p>
+                            <p id="playerBasic">
+                                ST • 18 yaş
+                            </p>
+                            <p id="playerPhysical">
+                                180 cm • 75 kg
+                            </p>
+                        </div>
+                    </div>
+                    <div class="overall">
+                        <span>GEN</span>
+                        <strong id="rating">
+                            60
+                        </strong>
+                    </div>
+                </div>
+                <!-- DURUM KARTLARI -->
+                <div class="stats-cards">
+                    <div class="mini-stat">
+                        <span>⚡ Enerji</span>
+                        <b id="energy">100</b>
+                    </div>
+                    <div class="mini-stat">
+                        <span>😴 Yorgunluk</span>
+                        <b id="fatigue">0</b>
+                    </div>
+                    <div class="mini-stat">
+                        <span>❤️ Taraftar</span>
+                        <b id="fanTrust">60</b>
+                    </div>
+                    <div class="mini-stat">
+                        <span>👔 Hoca</span>
+                        <b id="coachTrust">60</b>
+                    </div>
+                    <div class="mini-stat">
+                        <span>⭐ İtibar</span>
+                        <b id="reputation">50</b>
+                    </div>
+                </div>
+                <!-- SAKATLIK -->
+                <div id="injuryBox"></div>
+                <!-- KARİYER ÖZETİ -->
+                <div class="card">
+                    <div class="section-title">
+                        <div>
+                            <span class="small-label">
+                                KARİYER
+                            </span>
+                            <h2>
+                                Kariyer Özeti
+                            </h2>
+                        </div>
+                        <span id="dateText">
+                            01.08.2026
+                        </span>
+                    </div>
+                    <p
+                        id="careerSummary"
+                        class="muted"
+                    >
+                        2026/2027 sezonu • Başakşehir • 0. hafta
+                    </p>
+                </div>
+                <!-- HIZLI MENÜ -->
+                <div class="quick-grid">
+                    <button
+                        class="quick-card"
+                        onclick="showPage('match')"
+                    >
+                        <span>⚽</span>
+                        <b>Maç</b>
+                        <small>Sonraki maç</small>
+                    </button>
+                    <button
+                        class="quick-card"
+                        onclick="showPage('league')"
+                    >
+                        <span>🏆</span>
+                        <b>Lig</b>
+                        <small>Puan durumu</small>
+                    </button>
+                    <button
+                        class="quick-card"
+                        onclick="showPage('transfer')"
+                    >
+                        <span>🔄</span>
+                        <b>Transfer</b>
+                        <small>Teklifler</small>
+                    </button>
+                    <button
+                        class="quick-card"
+                        onclick="showPage('stats')"
+                    >
+                        <span>📊</span>
+                        <b>İstatistik</b>
+                        <small>Kariyerin</small>
+                    </button>
+                </div>
+                <!-- HABERLER -->
+                <div class="card">
+                    <div class="section-title">
+                        <div>
+                            <span class="small-label">
+                                MEDYA
+                            </span>
+                            <h2>
+                                Son Haberler
+                            </h2>
+                        </div>
+                        <button
+                            class="text-btn"
+                            onclick="showPage('news')"
+                        >
+                            Tümü →
+                        </button>
+                    </div>
+                    <div id="homeNews">
+                    </div>
+                </div>
+            </section>
+            <!-- =================================================
+                 LİG
+            ================================================== -->
+            <section id="league" class="screen hidden">
+                <div class="page-heading">
+                    <span>🏆</span>
+                    <div>
+                        <h1>Lig</h1>
+                        <p>
+                            Puan durumu ve sıralama
+                        </p>
+                    </div>
+                </div>
+                <div class="filter-row">
+                    <select
+                        id="leagueCountry"
+                        onchange="changeLeagueCountry()"
+                    >
+                        <option>
+                            Avrupa ve Türkiye
+                        </option>
+                    </select>
+                    <select
+                        id="leagueName"
+                        onchange="drawTable()"
+                    >
+                    </select>
+                </div>
+                <div class="card">
+                    <h2 id="leagueTitle">
+                        Trendyol Süper Lig
+                    </h2>
+                    <div id="leagueTable">
+                    </div>
+                </div>
+            </section>
+            <!-- =================================================
+                 FİKSTÜR
+            ================================================== -->
+            <section id="fixture" class="screen hidden">
+                <div class="page-heading">
+                    <span>📅</span>
+                    <div>
+                        <h1>Fikstür</h1>
+                        <p>
+                            Sezon maçları
+                        </p>
+                    </div>
+                </div>
+                <div id="fixtureContent">
+                </div>
+            </section>
+            <!-- =================================================
+                 MAÇ
+            ================================================== -->
+            <section id="match" class="screen hidden">
+                <div class="page-heading">
+                    <span>⚽</span>
+                    <div>
+                        <h1>Maç</h1>
+                        <p>
+                            Sıradaki karşılaşman
+                        </p>
+                    </div>
+                </div>
+                <div id="matchContent">
+                </div>
+            </section>
+            <!-- =================================================
+                 İSTATİSTİK
+            ================================================== -->
+            <section id="stats" class="screen hidden">
+                <div class="page-heading">
+                    <span>📊</span>
+                    <div>
+                        <h1>İstatistikler</h1>
+                        <p>
+                            Kariyer ve sezon istatistikleri
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>Kariyer</h2>
+                    <div id="statsContent">
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>Bu Sezon</h2>
+                    <div id="seasonStats">
+                    </div>
+                </div>
+            </section>
+            <!-- =================================================
+                 TRANSFER
+            ================================================== -->
+            <section id="transfer" class="screen hidden">
+                <div class="page-heading">
+                    <span>🔄</span>
+                    <div>
+                        <h1>Transfer</h1>
+                        <p>
+                            Kulüpler ve teklifler
+                        </p>
+                    </div>
+                </div>
+                <div
+                    id="transferStatus"
+                    class="status-box"
+                >
+                </div>
+                <div class="card">
+                    <h2>Transfer Teklifleri</h2>
+                    <div id="transferOffers">
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>👀 Seni İzleyen Kulüpler</h2>
+                    <div id="interestedClubs">
+                    </div>
+                </div>
+            </section>
+            <!-- =================================================
+                 HASTANE
+            ================================================== -->
+            <section id="hospital" class="screen hidden">
+                <div class="page-heading">
+                    <span>🏥</span>
+                    <div>
+                        <h1>Hastane</h1>
+                        <p>
+                            Sakatlık ve tedavi
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div id="hospitalContent">
+                    </div>
+                </div>
+            </section>
+            <!-- =================================================
+                 MAĞAZA
+            ================================================== -->
+            <section id="shop" class="screen hidden">
+                <div class="page-heading">
+                    <span>🛒</span>
+                    <div>
+                        <h1>Mağaza</h1>
+                        <p>
+                            Kariyerini geliştir
+                        </p>
+                    </div>
+                </div>
+                <div
+                    id="shopContent"
+                    class="shop-grid"
+                >
+                </div>
+            </section>
+            <!-- =================================================
+                 YAŞAM
+            ================================================== -->
+            <section id="property" class="screen hidden">
+                <div class="page-heading">
+                    <span>🏠</span>
+                    <div>
+                        <h1>Yaşam</h1>
+                        <p>
+                            Kazandıklarını harca
+                        </p>
+                    </div>
+                </div>
+                <div
+                    id="propertyContent"
+                    class="shop-grid"
+                >
+                </div>
+            </section>
+            <!-- =================================================
+                 HABERLER
+            ================================================== -->
+            <section id="news" class="screen hidden">
+                <div class="page-heading">
+                    <span>📰</span>
+                    <div>
+                        <h1>Haberler</h1>
+                        <p>
+                            Futbol dünyasından gelişmeler
+                        </p>
+                    </div>
+                </div>
+                <div
+                    id="newsContent"
+                >
+                </div>
+            </section>
+            <!-- =================================================
+                 TEKNİK DİREKTÖRLÜK
+            ================================================== -->
+            <section id="manager" class="screen hidden">
+                <div class="page-heading">
+                    <span>👔</span>
+                    <div>
+                        <h1>Teknik Direktörlük</h1>
+                        <p>
+                            Futbolculuktan sonra yeni kariyer
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div
+                        id="managerContent"
+                    >
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- =================================================
+             ALT MENÜ
+        ================================================== -->
+        <nav class="bottom-nav">
+            <button
+                onclick="showPage('home')"
+                class="nav-item active"
+            >
+                <span>🏠</span>
+                <small>Ana Sayfa</small>
+            </button>
+            <button
+                onclick="showPage('match')"
+                class="nav-item"
+            >
+                <span>⚽</span>
+                <small>Maç</small>
+            </button>
+            <button
+                onclick="showPage('league')"
+                class="nav-item"
+            >
+                <span>🏆</span>
+                <small>Lig</small>
+            </button>
+            <button
+                onclick="showPage('transfer')"
+                class="nav-item"
+            >
+                <span>🔄</span>
+                <small>Transfer</small>
+            </button>
+            <button
+                onclick="showMoreMenu()"
+                class="nav-item"
+            >
+                <span>☰</span>
+                <small>Daha Fazla</small>
+            </button>
+        </nav>
+        <!-- =================================================
+             DAHA FAZLA MENÜ
+        ================================================== -->
+        <div
+            id="moreMenu"
+            class="more-menu hidden"
+        >
+            <div class="more-menu-inner">
+                <div class="more-header">
+                    <h2>Menü</h2>
+                    <button
+                        onclick="hideMoreMenu()"
+                    >
+                        ✕
+                    </button>
+                </div>
+                <button
+                    onclick="openFromMore('fixture')"
+                >
+                    📅 Fikstür
+                </button>
+                <button
+                    onclick="openFromMore('stats')"
+                >
+                    📊 İstatistik
+                </button>
+                <button
+                    onclick="openFromMore('hospital')"
+                >
+                    🏥 Hastane
+                </button>
+                <button
+                    onclick="openFromMore('shop')"
+                >
+                    🛒 Mağaza
+                </button>
+                <button
+                    onclick="openFromMore('property')"
+                >
+                    🏠 Yaşam
+                </button>
+                <button
+                    onclick="openFromMore('news')"
+                >
+                    📰 Haberler
+                </button>
+                <button
+                    onclick="openFromMore('manager')"
+                >
+                    👔 Teknik Direktör
+                </button>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
